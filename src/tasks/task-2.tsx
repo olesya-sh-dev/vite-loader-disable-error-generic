@@ -1,8 +1,10 @@
-type MyComponentProps = {
-  items: any[]
-  defaultItem: any
+type MyComponentProps<T> = {
+  items: Array<T>,
+  defaultItem: T
 }
-function MyComponent(props: MyComponentProps) {
+
+//<T,> с запятой в стрелочной функции, т.к. TS воспринимает <T> как компонент. В function declaration - все ок
+const MyComponent = <T,>(props: MyComponentProps<T>) =>{
   console.log(props)
   return <p>some content</p>
 }
@@ -15,8 +17,8 @@ const App = () => {
 
   return (
     <>
-      <MyComponent items={['react', 'typescript']} defaultItem={9} />
-      <MyComponent items={users} defaultItem={'JUST STRING'} />
+      <MyComponent items={['react', 'typescript']} defaultItem={"h"} />
+      <MyComponent items={users} defaultItem= {{ name: 'Sam', age: 40 }}/>
     </>
   )
 }
